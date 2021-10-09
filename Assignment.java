@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.io.*;
 import java.lang.*;
 import java.util.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class Assignment {
   public static int subtract (int numberOne, int nubmerTwo) {
@@ -38,7 +40,54 @@ public class Assignment {
     String full = firstName+" "+lastName;
     return full;
   }
-  public static void main(String[] args) {
+  public static boolean isGreaterThan100(int[] numberToEval) {
+    int total = 0;
+    for (int num : numberToEval) {
+      total = total+num;
+    }
+    if (total>100)return(true);
+    else return(false);
+  }
+  public static double displayAverage(double doubleToEval[]) {
+    double doubleAverage;
+    double total = 0;
+    for (int i=0;i<doubleToEval.length;i++) {
+      total=total+doubleToEval[i];
+    }
+    doubleAverage=total/doubleToEval.length;
+    return doubleAverage;
+  }
+  public static double[] displayAverageTimesDeux(double doubleToEval1[],double[] doubleToEval2) {
+    double[] doubleAverage= {0,0};
+    double total = 0;
+    for (int i=0;i<doubleToEval1.length;i++) {
+      total=total+doubleToEval1[i];
+    }
+    doubleAverage[0]=total/doubleToEval1.length;
+
+    double total2 = 0;
+    for (int i=0;i<doubleToEval2.length;i++) {
+      total2=total2+doubleToEval2[i];
+    }
+    doubleAverage[1]=total2/doubleToEval2.length;
+    return doubleAverage;
+  }
+  public static boolean willBuyDrink(boolean isHotOutside, double moneyInPocket) {
+    final double tenFifty =10.50;
+    if (isHotOutside = true && moneyInPocket > tenFifty) return true;
+    else return false;
+  }
+  //this method gets the system info of the device currently running the java application. 
+  public static String[] systemInfo() throws UnknownHostException {
+    InetAddress address = InetAddress.getLocalHost(); 
+    String hostIP = address.getHostAddress() ;
+    String hostName = address.getHostName();
+    String sysInf[]= {System.getProperty("os.name"),hostIP,hostName};
+    
+    return sysInf;
+  }
+  
+  public static void main(String[] args) throws UnknownHostException {
     int [] ages=  {
       3,9,23,64,2,8,28,93  
     };
@@ -56,6 +105,7 @@ public class Assignment {
     for (String name : names){
       System.out.println(name+"("+name.length()+")");
       totalCharacters=totalCharacters+name.length();
+      
      }
     System.out.println("Average letters per Name = "+((float)totalCharacters/names.length));
     index = 0;
@@ -94,9 +144,30 @@ public class Assignment {
     String myName=fullName(FN, LN);
     System.out.println(myName);
     System.out.println("Done with Part 8 of assignment");
-    
-    
-    
+    int[] arrayToTest = {10, 20, 30, 40, 50};
+    boolean isGreaterThanOneHundred = isGreaterThan100(arrayToTest);
+    System.out.println("Is the array greater than 100? "+ isGreaterThanOneHundred);
+    System.out.println("Done with Part 9 of assignment");
+    double[] averageDoubleArr= {20.6,15.6,5.5,6.3,9.9,5.5,100.258,5849.2569,.063};
+    double returnedAverage=displayAverage(averageDoubleArr);
+    System.out.println("The Average of the double is: "+ returnedAverage);
+    System.out.println("Done with Part 10 of assignment");
+    double[] doubleArray1= {20.6,15.6,5.5,6.3,9.9,5.5,100.258,5849.2569,.063};
+    double[] doubleArray2= {5.5,6.6,7.7,8.8,9.9,10.10,11.11,12.12};
+    double[] returnedAverages = displayAverageTimesDeux(doubleArray1, doubleArray2);
+    System.out.println(Arrays.toString(returnedAverages));
+    System.out.println("Done with Part 11 of assignment");
+    double moneyIHave = 10.51;
+    boolean isItHot = true;
+    boolean canIhaveDrink = willBuyDrink(isItHot, moneyIHave);
+    String notBoolDrink= "maybe";
+    if (canIhaveDrink=true)  notBoolDrink = "Yes";
+    if (canIhaveDrink=false)  notBoolDrink = "no";
+    System.out.println("Can I have a drink: "+ notBoolDrink);
+    System.out.println("Done with Part 12 of assignment");
+    String[] whatIsMySysInfo=systemInfo();
+    System.out.println(Arrays.toString(whatIsMySysInfo));
+    System.out.println("Done with Part 13 of assignment");
 
   }
 
